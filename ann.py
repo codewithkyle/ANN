@@ -14,5 +14,4 @@ class ReLU:
 class Softmax:
     def forward(self, inputs):
         values = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
-        # Outputs probabilities
         self.output = values / np.sum(values, axis=1, keepdims=True)
