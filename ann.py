@@ -24,6 +24,14 @@ class Softmax:
     def forward(self, inputs):
         values = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
         self.output = values / np.sum(values, axis=1, keepdims=True)
+    def backward(self, dvalues):
+        self.dinputs = np.empty_like(dvalues)
+        for i, (o, dv) in enumerate(zip(self.output, dvalues)):
+            o = o.reshape(-1, 1)
+            # Calculate the Jacobian matrix of the output
+            matrix = np.diagflat(o) - np.dot(o, o.T)
+            # Calculate the sample-wise graident and add it to the array of sample gradients
+            self.dinputs[i] = np.dot(matrix, dv)
 
 class Loss:
     def calculate(self, output, y):
