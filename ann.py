@@ -41,6 +41,14 @@ class CategoricalCrossentropy(Loss):
             correct_confidences = np.sum(clipped_samples * actuals, axis=1)
         neg_confidences = -np.log(correct_confidences)
         return neg_confidences
+    def backward(self, dvalues, actuals):
+        samples = len(dvalues)
+        labels = len(dvalues[0])
+        # If labels are sparse, turn them into a one-hot vector
+        if len(actuals.shape) == 1:
+            actuals = np.eye(labels)[actuals]
+        gradient = -actuals / dvalues
+        self.dinputs = gradient / samples
 
 class Accuracy:
     def calculate(self, predictions, actuals):
