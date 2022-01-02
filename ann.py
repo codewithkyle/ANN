@@ -1,3 +1,4 @@
+from data import create_data
 import numpy as np
 
 class Layer:
