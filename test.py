@@ -9,7 +9,7 @@ accuracy_func = Accuracy()
 loss_activation = Softmax_CategoricalCrossEntropy()
 optimizer = SGD_Optimizer()
 
-# Do work
+# Create test data
 X, y = create_data(100, 3)
 
 for epoch in range(10001):
