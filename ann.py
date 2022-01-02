@@ -80,3 +80,10 @@ class Softmax_CategoricalCrossEntropy:
         self.dinputs = dvalues.copy()
         self.dinputs[range(samples), actuals] -= 1
         self.dinputs = self.dinputs / samples
+
+class SGD_Optimizer:
+    def __init__(self, learning_rate=1.0):
+        self.learning_rate = learning_rate
+    def update(self, layer):
+        layer.weights += -self.learning_rate * layer.dweights
+        layer.biases += -self.learning_rate * layer.dbiases
