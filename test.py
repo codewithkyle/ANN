@@ -23,7 +23,7 @@ act2.forward(layer2.output)
 # print(act2.output[:5])
 
 loss = loss_func.calculate(act2.output, y)
-print("Loss:", loss)
+# print("Loss:", loss)
 
 accuracy = accuracy_func.calculate(act2.output, y)
-print("Accuracy:", accuracy)
+# print("Accuracy:", accuracy)

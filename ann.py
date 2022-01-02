@@ -6,10 +6,19 @@ class Layer:
         self.biases = np.zeros((1, neurons))
     def forward(self, inputs):
         self.output = np.dot(inputs, self.weights) + self.biases
+        self.inputs = inputs
+    def backward(self, dvalues):
+        self.dweights = np.dot(self.inputs.T, dvalues)
+        self.dbiases = np.sum(dvalues, axis=0, keepdims=True)
+        self.dinputs = np.dot(dvalues, self.weights.T)
 
 class ReLU:
     def forward(self, inputs):
         self.output = np.maximum(0, inputs)
+        self.inputs = inputs
+    def backward(self, dvalues):
+        self.dinputs = dvalues.copy()
+        self.dinputs[self.inputs <= 0] = 0
 
 class Softmax:
     def forward(self, inputs):
