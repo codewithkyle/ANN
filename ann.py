@@ -10,3 +10,9 @@ class Layer:
 class ReLU:
     def forward(self, inputs):
         self.output = np.maximum(0, inputs)
+
+class Softmax:
+    def forward(self, inputs):
+        values = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
+        # Outputs probabilities
+        self.output = values / np.sum(values, axis=1, keepdims=True)
